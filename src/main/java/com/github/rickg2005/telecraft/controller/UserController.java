@@ -25,7 +25,15 @@ public class UserController {
                 request.getPassword(),
                 request.getRole()
         );
-        return ResponseEntity.ok(savedUser);
+
+        UserResponse response = UserResponse.builder()
+                .id(savedUser.getId())
+                .email(savedUser.getEmail())
+                .role(savedUser.getRole())
+                .createdAt(savedUser.getCreatedAt())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
@@ -34,6 +42,14 @@ public class UserController {
                 request.getEmail(),
                 request.getPassword()
         );
-        return ResponseEntity.ok(loggedInUser);
+
+        UserResponse response = UserResponse.builder()
+                .id(loggedInUser.getId())
+                .email(loggedInUser.getEmail())
+                .role(loggedInUser.getRole())
+                .createdAt(loggedInUser.getCreatedAt())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 }

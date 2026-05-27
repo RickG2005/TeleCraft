@@ -2,6 +2,7 @@ package com.github.rickg2005.telecraft.service;
 
 import com.github.rickg2005.telecraft.domain.User;
 import com.github.rickg2005.telecraft.domain.UserRole;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.github.rickg2005.telecraft.repository.UserRepository;
 
@@ -12,9 +13,11 @@ import java.util.UUID;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public User registerUser (String email, String rawPassword, UserRole role){
@@ -22,10 +25,12 @@ public class UserService {
             throw new RuntimeException("Email is already taken.");
         }
 
+        String encryptedPassword = passwordEncoder.encode(rawPassword);
+
         User newUser = User.builder()
                 .id(UUID.randomUUID())
                 .email(email)
-                .passwordHash(rawPassword)
+                .passwordHash(encryptedPassword)
                 .role(role)
                 .createdAt(OffsetDateTime.now())
                 .active(true)
@@ -41,7 +46,7 @@ public class UserService {
         }
         User user = userOptional.get();
 
-        if (!user.getPasswordHash().equals(password)){
+        if (!passwordEncoder.matches(password, user.getPasswordHash())){
             throw new RuntimeException(("Invalid email or password!"));
         }
 
