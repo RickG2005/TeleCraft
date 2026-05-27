@@ -1,6 +1,6 @@
-package repository;
+package com.github.rickg2005.telecraft.repository;
 
-import domain.User;
+import com.github.rickg2005.telecraft.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

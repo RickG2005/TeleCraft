@@ -1,4 +1,4 @@
-package domain;
+package com.github.rickg2005.telecraft.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

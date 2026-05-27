@@ -1,6 +1,6 @@
-package dto;
+package com.github.rickg2005.telecraft.dto;
 
-import domain.UserRole;
+import com.github.rickg2005.telecraft.domain.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 

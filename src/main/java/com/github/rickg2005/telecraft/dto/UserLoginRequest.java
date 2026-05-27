@@ -1,4 +1,4 @@
-package dto;
+package com.github.rickg2005.telecraft.dto;
 
 import lombok.Getter;
 import lombok.Setter;

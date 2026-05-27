@@ -1,11 +1,12 @@
-package controller;
+package com.github.rickg2005.telecraft.controller;
 
-import domain.User;
-import dto.UserLoginRequest;
-import dto.UserRegisterRequest;
+import com.github.rickg2005.telecraft.domain.User;
+import com.github.rickg2005.telecraft.dto.UserLoginRequest;
+import com.github.rickg2005.telecraft.dto.UserRegisterRequest;
+import com.github.rickg2005.telecraft.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.UserService;
+import com.github.rickg2005.telecraft.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserRegisterRequest request){
+    public ResponseEntity<UserResponse> register(@RequestBody UserRegisterRequest request){
         User savedUser = userService.registerUser(
                 request.getEmail(),
                 request.getPassword(),
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody UserLoginRequest request) {
+    public ResponseEntity<UserResponse> login(@RequestBody UserLoginRequest request) {
         User loggedInUser = userService.loginUser(
                 request.getEmail(),
                 request.getPassword()

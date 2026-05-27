@@ -1,9 +1,9 @@
-package service;
+package com.github.rickg2005.telecraft.service;
 
-import domain.User;
-import domain.UserRole;
+import com.github.rickg2005.telecraft.domain.User;
+import com.github.rickg2005.telecraft.domain.UserRole;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.github.rickg2005.telecraft.repository.UserRepository;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
