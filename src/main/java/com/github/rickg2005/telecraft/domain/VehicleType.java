@@ -19,7 +19,7 @@ public class VehicleType {
     @Id
     @Column(name = "type_id", nullable = false, updatable = false)
     UUID type_id;
-    @Column(name = "code", nullable = false)
+    @Column(name = "code", nullable = false, unique = true)
     String code;
     @Column(nullable = false)
     private String description;

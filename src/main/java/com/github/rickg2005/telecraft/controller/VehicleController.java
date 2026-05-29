@@ -1,16 +1,14 @@
 package com.github.rickg2005.telecraft.controller;
 
 import com.github.rickg2005.telecraft.domain.Vehicle;
-import com.github.rickg2005.telecraft.dto.UserRegisterRequest;
-import com.github.rickg2005.telecraft.dto.UserResponse;
 import com.github.rickg2005.telecraft.dto.VehicleEnrollRequest;
 import com.github.rickg2005.telecraft.dto.VehicleResponse;
 import com.github.rickg2005.telecraft.service.VehicleService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/vehicles")
@@ -26,16 +24,34 @@ public class VehicleController {
     public ResponseEntity<VehicleResponse> register(@RequestBody VehicleEnrollRequest request){
         Vehicle savedVehicle = vehicleService.enrollVehicle(request.getName(), request.getType());
 
-        VehicleResponse response = VehicleResponse.builder()
-                .id(String.valueOf(savedVehicle.getId()))
-                .name(savedVehicle.getName())
-                .typeCode(savedVehicle.getType().getCode())
-                .typeDescription(savedVehicle.getType().getDescription())
-                .status(String.valueOf(savedVehicle.getStatus()))
-                .createdAt(savedVehicle.getCreatedAt())
-                .build();
+        VehicleResponse response = mapToResponse(savedVehicle);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VehicleResponse>> getAllVehicles(){
+        List<Vehicle> Vehicles = vehicleService.getAllVehicles();
+
+        List<VehicleResponse> responseList = new ArrayList<>();
+        for (Vehicle vehicle : Vehicles){
+            VehicleResponse dto = mapToResponse(vehicle);
+            responseList.add(dto);
+        }
+
+        return ResponseEntity.ok(responseList);
+    }
+
+    //Map Vehicle object to Vehicle Response DTO
+    private VehicleResponse mapToResponse(Vehicle vehicle) {
+        return VehicleResponse.builder()
+                .id(vehicle.getId().toString())
+                .name(vehicle.getName())
+                .typeCode(vehicle.getType().getCode())
+                .typeDescription(vehicle.getType().getDescription())
+                .status(vehicle.getStatus().name())
+                .createdAt(vehicle.getCreatedAt())
+                .build();
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,5 +43,9 @@ public class VehicleService {
                 .build();
 
         return vehicleRepository.save(enrolledVehicle);
+    }
+
+    public List<Vehicle> getAllVehicles(){
+        return vehicleRepository.findAll();
     }
 }

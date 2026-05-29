@@ -24,6 +24,7 @@ public class Vehicle {
     private VehicleType type;
     @Column(name = "created_At", nullable = false)
     private OffsetDateTime createdAt;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private VehicleStatus status;
 }

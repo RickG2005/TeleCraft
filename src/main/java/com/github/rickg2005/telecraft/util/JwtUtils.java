@@ -1,4 +1,4 @@
-package util;
+package com.github.rickg2005.telecraft.util;
 
 
 import io.jsonwebtoken.Claims;

@@ -8,7 +8,7 @@ import com.github.rickg2005.telecraft.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.github.rickg2005.telecraft.service.UserService;
-import util.JwtUtils;
+import com.github.rickg2005.telecraft.util.JwtUtils;
 
 @RestController
 @RequestMapping("/api/auth")
