@@ -1,14 +1,17 @@
 package com.github.rickg2005.telecraft.controller;
 
 import com.github.rickg2005.telecraft.domain.Vehicle;
+import com.github.rickg2005.telecraft.domain.VehicleStatus;
 import com.github.rickg2005.telecraft.dto.VehicleEnrollRequest;
 import com.github.rickg2005.telecraft.dto.VehicleResponse;
+import com.github.rickg2005.telecraft.dto.VehicleStatusChangeRequest;
 import com.github.rickg2005.telecraft.service.VehicleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/vehicles")
@@ -40,6 +43,13 @@ public class VehicleController {
         }
 
         return ResponseEntity.ok(responseList);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<VehicleResponse> updateStatus(@PathVariable UUID id,
+                                                        @RequestBody VehicleStatusChangeRequest request){
+        Vehicle updatedVehicle = vehicleService.updateStatus(id, request.getStatus());
+        return ResponseEntity.ok(mapToResponse(updatedVehicle));
     }
 
     //Map Vehicle object to Vehicle Response DTO

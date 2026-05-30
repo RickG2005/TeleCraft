@@ -48,4 +48,21 @@ public class VehicleService {
     public List<Vehicle> getAllVehicles(){
         return vehicleRepository.findAll();
     }
+
+    public Vehicle updateStatus(UUID id, String status){
+
+        Vehicle changedVehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invalid Vehicle ID"));
+
+        VehicleStatus targetStatus;
+        try{
+            targetStatus = VehicleStatus.valueOf(String.valueOf(status).toUpperCase());
+        }
+        catch(IllegalArgumentException e){
+            throw new IllegalArgumentException("Invalid status transition. Allowed values: ACTIVE, MAINTENANCE, OFFLINE");
+        }
+
+        changedVehicle.setStatus(targetStatus);
+        return vehicleRepository.save(changedVehicle);
+    }
 }
